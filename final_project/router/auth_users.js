@@ -6,7 +6,10 @@ const regd_users = express.Router();
 let users = [];
 
 const isValid = (username)=>{ //returns boolean
-//write code to check is the username is valid
+
+  const user_exists = users.some(user => user.username === username);
+  const regex = /^[a-zA-Z0-9_]{3,}$/; 
+  return regex.test(username) && !user_exists; // Username is valid if it matches the regex and does not already exist
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
@@ -18,6 +21,8 @@ regd_users.post("/login", (req,res) => {
   //Write your code here
   return res.status(300).json({message: "Yet to be implemented"});
 });
+
+
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
